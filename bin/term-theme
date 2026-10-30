@@ -1,0 +1,85 @@
+#!/usr/bin/env python3 -I
+"""切換 Ghostty + herdr 的配色組合。用法：term-theme [dark|light|list]"""
+import os, re, signal, subprocess, sys
+
+# 每組設定：Ghostty 的設定行、herdr 主題與顏色。要加新組合就在這裡多加一個。
+PROFILES = {
+    "dark": {
+        "ghostty": ["theme = TokyoNight Night"],
+        "herdr_theme": "tokyo-night",
+        "herdr_custom": {"overlay0": "#565f89", "overlay1": "#9aa5ce", "subtext0": "#a9b1d6"},
+        "agent_title": "#c0caf5",
+        "agent_detail": "#a9b1d6",
+    },
+    "light": {
+        "ghostty": ["theme = iTerm2 Solarized Light"],
+        "herdr_theme": "solarized-light",
+        "herdr_custom": {"overlay0": "#93a1a1", "overlay1": "#657b83", "subtext0": "#657b83"},
+        "agent_title": "#073642",
+        "agent_detail": "#586e75",
+    },
+}
+
+GHOSTTY_DIR = os.path.expanduser("~/.config/ghostty")
+GHOSTTY_FILE = os.path.join(GHOSTTY_DIR, "term-theme.ghostty")
+HERDR_FILE = os.path.expanduser("~/.config/herdr/config.toml")
+
+
+def current():
+    try:
+        with open(GHOSTTY_FILE) as f:
+            m = re.search(r"^# profile: (\S+)", f.read(), re.M)
+            return m.group(1) if m else None
+    except OSError:
+        return None
+
+
+def write_ghostty(name, p):
+    with open(GHOSTTY_FILE, "w") as f:
+        f.write(f"# profile: {name}\n# 由 term-theme 產生，手動修改會被覆蓋\n")
+        f.write("\n".join(p["ghostty"]) + "\n")
+    # Ghostty 收到 SIGUSR2 會重新載入設定
+    for pid in subprocess.run(["pgrep", "-x", "ghostty"], capture_output=True, text=True).stdout.split():
+        os.kill(int(pid), signal.SIGUSR2)
+
+
+def write_herdr(p):
+    s = open(HERDR_FILE).read()
+    custom = "\n".join(f'{k} = "{v}"' for k, v in p["herdr_custom"].items())
+    block = (
+        "[theme]\n"
+        f'name = "{p["herdr_theme"]}"\n'
+        "auto_switch = false\n\n"
+        "[theme.custom]\n"
+        f"{custom}\n"
+    )
+    # 取代 [theme] 開頭、到下一個非 theme 區段之前的整段
+    s, n = re.subn(r"^\[theme\]\n.*?(?=^\[(?!theme))", lambda m: block + "\n", s, count=1, flags=re.M | re.S)
+    if n != 1:
+        sys.exit("herdr config.toml 裡找不到 [theme] 區段")
+    # 左側 agent 列的文字顏色：第一列用 title 色，其餘用 detail 色
+    s = re.sub(r'(token = "\$title", fg = ")#[0-9a-fA-F]{6}', rf'\g<1>{p["agent_title"]}', s)
+    s = re.sub(r'(token = "(?:agent|\$limit|\$context)", fg = ")#[0-9a-fA-F]{6}', rf'\g<1>{p["agent_detail"]}', s)
+    with open(HERDR_FILE, "w") as f:
+        f.write(s)
+    chk = subprocess.run(["herdr", "config", "check"], capture_output=True, text=True)
+    if chk.returncode != 0:
+        sys.exit("herdr config check 失敗：\n" + chk.stdout + chk.stderr)
+    subprocess.run(["herdr", "server", "reload-config"], capture_output=True)
+
+
+def main():
+    arg = sys.argv[1] if len(sys.argv) > 1 else "list"
+    if arg == "list":
+        cur = current()
+        for n in PROFILES:
+            print(("* " if n == cur else "  ") + n)
+        return
+    if arg not in PROFILES:
+        sys.exit(f"沒有 {arg} 這組，可用：{', '.join(PROFILES)}")
+    write_ghostty(arg, PROFILES[arg])
+    write_herdr(PROFILES[arg])
+    print(f"已切換到 {arg}")
+
+
+main()

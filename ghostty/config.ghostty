@@ -1,0 +1,9 @@
+# Ghostty 設定（~/.config/ghostty 連到 dotfiles/ghostty）
+# 說明：https://ghostty.org/docs/config
+
+# 配色由 term-theme 指令管理，寫在同資料夾的 term-theme.ghostty（不進 git）
+config-file = ?term-theme.ghostty
+
+# 讓字重和大小接近配色試衣間的預覽（瀏覽器渲染比較粗）
+font-size = 14
+font-thicken = true

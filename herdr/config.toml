@@ -1,0 +1,88 @@
+onboarding = false
+
+[ui]
+status_indicators = "symbols"
+tab_bar_position = "top"
+hide_tab_bar_when_single_tab = false
+tab_bar_right = [
+  { type = "command", command = "/opt/homebrew/opt/python@3.13/libexec/bin/python3 /Users/xpizta/.config/herdr/quota-status.py", interval_seconds = 30, timeout_seconds = 20 },
+]
+
+[ui.toast]
+delivery = "terminal"
+
+[theme]
+name = "solarized-light"
+auto_switch = false
+
+[theme.custom]
+overlay0 = "#93a1a1"
+overlay1 = "#657b83"
+subtext0 = "#657b83"
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", { token = "$title", fg = "#073642", dim = false }],
+  [{ token = "agent", fg = "#586e75", dim = false }, { token = "$limit", fg = "#586e75", dim = false }],
+  [{ token = "$context", fg = "#586e75", dim = false }],
+]
+
+[[keys.command]]
+key = "ctrl+shift+u"
+type = "plugin_action"
+command = "usagebar.open-limits"
+description = "Agent Usage: open limits pane"
+
+[[keys.command]]
+key = "ctrl+shift+m"
+type = "plugin_action"
+command = "usagebar.refresh"
+description = "Agent Usage: refresh sidebar meters"
+
+# >>> furkankly.zoetrope keys (managed: `setup-keys` writes this block, `remove-keys` deletes it)
+[[keys.command]]
+key = "prefix+shift+z"
+type = "plugin_action"
+command = "furkankly.zoetrope.open"
+description = "zoetrope: session graph (overlay)"
+
+# The graph opens over the focused pane and gives the layout back when
+# it closes. The same key closes it. Two other placements, if you would
+# rather keep the graph on screen: uncomment one, or point the binding
+# above at its action. Then: herdr server reload-config
+[[keys.command]]
+key = "prefix+shift+v"
+type = "plugin_action"
+command = "furkankly.zoetrope.open-split"
+description = "zoetrope: session graph (split)"
+
+[[keys.command]]
+key = "prefix+shift+c"
+type = "plugin_action"
+command = "furkankly.zoetrope.open-tab"
+description = "zoetrope: session graph (tab)"
+
+# <<< furkankly.zoetrope keys
+
+[ui.sidebar.spaces]
+rows = [
+  [{ token = "workspace", rules = [
+    { starts_with = "🔵", bold = true },
+    { starts_with = "🟣", bold = true },
+    { starts_with = "🔴", bold = true },
+    { starts_with = "🟢", bold = true },
+    { starts_with = "🟡", bold = true },
+    { starts_with = "⚪", bold = true },
+    { starts_with = "🟠", bold = true },
+  ] }],
+  ["branch", "git_status"]
+]
+
+# >>> yojahny55.space-groups keys
+[[keys.command]]
+key = "prefix+shift+s"
+type = "plugin_action"
+command = "yojahny55.space-groups.open-picker"
+description = "space groups picker"
+# <<< yojahny55.space-groups keys
