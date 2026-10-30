@@ -1,0 +1,22 @@
+{
+  "order": [
+    "GSS",
+    "其他"
+  ],
+  "groups": {
+    "GSS": {
+      "color": "blue"
+    },
+    "其他": {
+      "color": "purple"
+    }
+  },
+  "assign": {
+    "123": "其他",
+    "BOLE": "GSS",
+    "Vital Design": "GSS",
+    "測試案例產生器": "GSS",
+    "GSS_RADAR-RECRUIT_ER": "GSS",
+    "日常": "其他"
+  }
+}

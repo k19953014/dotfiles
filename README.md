@@ -17,7 +17,8 @@ git clone https://github.com/<you>/dotfiles ~/dotfiles
    - `~/.config/herdr/config.toml` → `herdr/config.toml`
    - `~/.config/herdr/quota-status.py` → `herdr/quota-status.py`
    - `~/.local/bin/term-theme` → `bin/term-theme`
-3. 安裝 herdr 外掛：usagebar、zoetrope、space-groups。
+3. 安裝 herdr 外掛：usagebar、zoetrope、space-groups，並把 space-groups 的分組設定
+   `~/.config/herdr/plugins/config/yojahny55.space-groups/groups.json` 連到 `herdr/space-groups/groups.json`。
 4. 套用深色配色。
 
 因為是連結，改設定就是改這個 repo 裡的檔案，改完記得 commit。
@@ -39,4 +40,4 @@ Claude Code 的主題不在範圍內，切換後用 `/theme` 自己調。
 ## 注意
 
 - `herdr/config.toml` 裡 tab bar 的用量指令寫的是絕對路徑（`/opt/homebrew/opt/python@3.13/...`、`/Users/xpizta/...`）。新電腦的使用者名稱或 Python 版本不同時要改。
-- space-groups 的分組（`herdr plugin config-dir yojahny55.space-groups` 裡的 `groups.json`）沒有放進來，每台電腦各自設定。
+- 如果之後發現 `groups.json` 變回一般檔案（不是連結），代表外掛存檔時把連結換掉了，把它搬回 repo 再重跑 `install.sh` 即可。

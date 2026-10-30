@@ -49,6 +49,9 @@ if command -v herdr >/dev/null; then
   herdr plugin install -y yojahny55/herdr-space-groups || true
 fi
 
+# space-groups 的分組設定（外掛裝好後才有 config 資料夾）
+link herdr/space-groups/groups.json ~/.config/herdr/plugins/config/yojahny55.space-groups/groups.json
+
 # 沒有選過配色就先用深色
 [ -f "$DOTFILES/ghostty/term-theme.ghostty" ] || "$DOTFILES/bin/term-theme" dark || true
 
