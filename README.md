@@ -5,7 +5,7 @@ Ghostty + herdr 的終端機設定，加上一個切換深色／淺色的 `term-
 ## 新電腦安裝
 
 ```sh
-git clone https://github.com/<you>/dotfiles ~/dotfiles
+git clone https://github.com/k19953014/dotfiles ~/dotfiles
 ~/dotfiles/install.sh
 ```
 

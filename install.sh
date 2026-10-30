@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 在新電腦上安裝 Ghostty + herdr + term-theme 設定。
-# 用法：git clone https://github.com/<you>/dotfiles ~/dotfiles && ~/dotfiles/install.sh
+# 用法：git clone https://github.com/k19953014/dotfiles ~/dotfiles && ~/dotfiles/install.sh
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
