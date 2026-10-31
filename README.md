@@ -15,9 +15,8 @@ git clone https://github.com/k19953014/dotfiles ~/dotfiles
 2. 把設定連到這個 repo（原本的檔案會改名成 `*.backup-時間`）：
    - `~/.config/ghostty` → `ghostty/`
    - `~/.config/herdr/config.toml` → `herdr/config.toml`
-   - `~/.config/herdr/quota-status.py` → `herdr/quota-status.py`
    - `~/.local/bin/term-theme` → `bin/term-theme`
-3. 安裝 herdr 外掛：usagebar、zoetrope、space-groups，並把 space-groups 的分組設定
+3. 安裝 herdr 外掛：zoetrope、space-groups，並把 space-groups 的分組設定
    `~/.config/herdr/plugins/config/yojahny55.space-groups/groups.json` 連到 `herdr/space-groups/groups.json`。
 4. 套用深色配色。
 

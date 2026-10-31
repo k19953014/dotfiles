@@ -31,7 +31,6 @@ fi
 
 link ghostty ~/.config/ghostty
 link herdr/config.toml ~/.config/herdr/config.toml
-link herdr/quota-status.py ~/.config/herdr/quota-status.py
 link bin/term-theme ~/.local/bin/term-theme
 
 # macOS 上 Ghostty 也會讀 Application Support 裡的設定，先移開以免蓋掉 repo 的設定
@@ -44,7 +43,6 @@ for f in config config.ghostty; do
 done
 
 if command -v herdr >/dev/null; then
-  herdr plugin install -y senna-lang/herdr-agent-usage || true
   herdr plugin install -y furkankly/zoetrope/herdr-plugin || true
   herdr plugin install -y yojahny55/herdr-space-groups || true
 fi
