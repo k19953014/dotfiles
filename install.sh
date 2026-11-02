@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 在新電腦上安裝 Ghostty + herdr + term-theme 設定。
+# 在新電腦上安裝 Ghostty + herdr + term-theme + Codex 設定。
 # 用法：git clone https://github.com/k19953014/dotfiles ~/dotfiles && ~/dotfiles/install.sh
 set -euo pipefail
 
@@ -23,7 +23,7 @@ link() {
 }
 
 if command -v brew >/dev/null; then
-  brew install herdr gh
+  brew install herdr gh python@3.13
   brew install --cask ghostty font-jetbrains-mono-nerd-font
 else
   echo "沒有 Homebrew，跳過安裝程式。請先裝 https://brew.sh 再重跑一次。"
@@ -55,3 +55,10 @@ link herdr/space-groups/groups.json ~/.config/herdr/plugins/config/yojahny55.spa
 
 echo
 echo "完成。若 ~/.local/bin 不在 PATH，請在 ~/.zshrc 加上：export PATH=\"\$HOME/.local/bin:\$PATH\""
+
+# Codex 只合併可攜設定，保留本機登入、MCP 與專案設定。
+CODEX_PYTHON="${CODEX_PYTHON:-python3}"
+if command -v brew >/dev/null && [ -x "$(brew --prefix python@3.13)/bin/python3.13" ]; then
+  CODEX_PYTHON="$(brew --prefix python@3.13)/bin/python3.13"
+fi
+"$CODEX_PYTHON" "$DOTFILES/codex/install.py"

@@ -63,3 +63,11 @@ type = "plugin_action"
 command = "yojahny55.space-groups.open-picker"
 description = "space groups picker"
 # <<< yojahny55.space-groups keys
+
+# >>> osamahbeig.pane-mover keys
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "osamahbeig.pane-mover.open"
+description = "Move this pane…"
+# <<< osamahbeig.pane-mover keys

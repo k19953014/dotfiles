@@ -1,3 +1,8 @@
 # term-theme 產生的目前配色，每台電腦各自決定
 ghostty/term-theme.ghostty
 .DS_Store
+
+# 本機備份與 Python 快取
+*.bak-*
+*.backup-*
+__pycache__/
