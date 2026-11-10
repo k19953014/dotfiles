@@ -49,7 +49,7 @@ rows = [
 
 [ui.sidebar.spaces]
 rows = [
-  ["state_icon", { token = "workspace", rules = [
+  [{ token = "workspace", rules = [
     { starts_with = "🔵", bold = true },
     { starts_with = "🟣", bold = true },
     { starts_with = "🔴", bold = true },
