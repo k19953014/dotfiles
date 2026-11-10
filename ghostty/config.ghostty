@@ -4,6 +4,10 @@
 # 配色由 term-theme 指令管理，寫在同資料夾的 term-theme.ghostty（不進 git）
 config-file = ?term-theme.ghostty
 
-# 讓字重和大小接近配色試衣間的預覽（瀏覽器渲染比較粗）
+# 字型設定：使用 JetBrains Mono 標準版，搭配原生 Medium 字重使中英粗細平衡、漢字舒展不擠壓
+font-family = "JetBrainsMono Nerd Font"
+font-style = "SemiBold"
+
+# 字型大小與字重（使用原生 Medium 字重，關閉人工 thicken 避免粗細打架）
 font-size = 14
-font-thicken = true
+font-thicken = false

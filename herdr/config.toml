@@ -1,7 +1,7 @@
 onboarding = false
 
 [ui]
-status_indicators = "symbols"
+status_indicators = "dots"
 tab_bar_position = "top"
 hide_tab_bar_when_single_tab = false
 
@@ -17,7 +17,6 @@ overlay0 = "#93a1a1"
 overlay1 = "#657b83"
 subtext0 = "#657b83"
 
-# >>> furkankly.zoetrope keys (managed: `setup-keys` writes this block, `remove-keys` deletes it)
 [[keys.command]]
 key = "prefix+shift+z"
 type = "plugin_action"
@@ -42,9 +41,15 @@ description = "zoetrope: session graph (tab)"
 
 # <<< furkankly.zoetrope keys
 
+[ui.sidebar.agents]
+rows = [
+  ["state_icon", "machine", "workspace", "tab"],
+  ["state_text", "agent"]
+]
+
 [ui.sidebar.spaces]
 rows = [
-  [{ token = "workspace", rules = [
+  ["state_icon", { token = "workspace", rules = [
     { starts_with = "🔵", bold = true },
     { starts_with = "🟣", bold = true },
     { starts_with = "🔴", bold = true },
